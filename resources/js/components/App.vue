@@ -15,7 +15,7 @@
                         <router-link exact-active-class="active" to="/" class="nav-link active" aria-current="page">Inicio</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link exact-active-class="active" to="/nosotros" class="nav-link">nosotros </router-link>
+                        <router-link exact-active-class="active" to="/nosotros" class="nav-link">Nosotros </router-link>
                     </li>   
                      <li class="nav-item">
                         <router-link exact-active-class="active" to="/contacto" class="nav-link">Contacto</router-link>
