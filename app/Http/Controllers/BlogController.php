@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all(['id','titulo','contenido']);
+        $blogs = Blog::all(['id','imagen','marca','placa','fabricacion','tipo','color','precio','combustible','nombres','apellidos','cell' ]);
         return response()->json($blogs);
     }
 
@@ -36,10 +37,43 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $blog = Blog::create($request->post());
-        return response()->json([           
-            'blog'=>$blog
+        // if($request->hasFile("imagen")){
+        //     $imagen = $request->file("imagen");
+        //     $nombreImagen = Str::slug($request->name).".".$imagen->guessExtension();
+        //     $ruta = public_path("/assets/img/publicaciones/");
+        //     $imagen->move($ruta,$nombreImagen);
+        //     $blog = Blog::create($request->post());
+        //     return response()->json([           
+        //         'blog'=>$blog,
+        //         'imagen' => $nombreImagen,
+        //     ]);
+        // }else
+
+        $request->validate([
+            'imagen'=>'required|file',
+   
+            'cell'=>'required|integer',
+
         ]);
+
+        $url=Storage::url($request->file('imagen')->store('img','public'));
+
+           $blog=new Blog();
+           $blog-> imagen=$url;
+           $blog-> marca=$request->marca;
+           $blog-> placa=$request->placa;
+           $blog-> fabricacion=$request->fabricacion;
+           $blog-> tipo=$request->tipo;
+           $blog-> color=$request->color;
+           $blog-> precio=$request->precio;
+           $blog-> combustible=$request->combustible;
+           $blog-> nombres=$request->nombres;
+           $blog-> apellidos=$request->apellidos;
+           $blog-> cell=$request->cell;
+
+
+           $blog->save();
+           return $blog;
     }
 
     /**

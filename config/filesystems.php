@@ -29,6 +29,10 @@ return [
     */
 
     'disks' => [
+        'public_file'=>[
+            'driver' => 'local',
+            'root' => storage_path('storage'),
+        ],
 
         'local' => [
             'driver' => 'local',
