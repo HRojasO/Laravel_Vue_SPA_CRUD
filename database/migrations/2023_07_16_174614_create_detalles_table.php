@@ -25,7 +25,7 @@ class CreateDetallesTable extends Migration
             $table->text('combustible');
             $table->timestamps();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.
